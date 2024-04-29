@@ -7,6 +7,10 @@ public class GyroIONavx implements GyroIO {
     private final double yaw = navx.getYaw();
     private final double yawVelocity = navx.getRate();
 
+    public GyroIONavx() {
+        navx.zeroYaw();
+    }
+
     @Override
     public void updateInputs(GyroIOInputs inputs) {
         inputs.connected = navx.isConnected();
