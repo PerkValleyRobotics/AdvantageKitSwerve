@@ -8,6 +8,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -36,16 +37,34 @@ public class Module extends SubsystemBase{
                 driveFeedforward = new SimpleMotorFeedforward(0.0, 0.0);
                 driveFeedback = new PIDController(0.0, 0.0, 0.0);
                 turnFeedback = new PIDController(0.0, 0.0, 0.0);
+                SmartDashboard.putNumber("drive_P", 0.0);
+                SmartDashboard.putNumber("drive_I" , 0.0);
+                SmartDashboard.putNumber("drive_D" , 0.0);
+                SmartDashboard.putNumber("turn_P", 0.0);
+                SmartDashboard.putNumber("turn_I" , 0.0);
+                SmartDashboard.putNumber("turn_D" , 0.0);
                 break;
             case SIM:
                 driveFeedforward = new SimpleMotorFeedforward(0.0, 0.13);
                 driveFeedback = new PIDController(0.1, 0.0, 0.0);
                 turnFeedback = new PIDController(10.0, 0.0, 0.0);
+                SmartDashboard.putNumber("drive_P", 0.1);
+                SmartDashboard.putNumber("drive_I" , 0.0);
+                SmartDashboard.putNumber("drive_D" , 0.0);
+                SmartDashboard.putNumber("turn_P", 10.0);
+                SmartDashboard.putNumber("turn_I" , 0.0);
+                SmartDashboard.putNumber("turn_D" , 0.0);
                 break;
             default:
                 driveFeedforward = new SimpleMotorFeedforward(0.0, 0.0);
                 driveFeedback = new PIDController(0.0, 0.0, 0.0);
                 turnFeedback = new PIDController(0.0, 0.0, 0.0);
+                SmartDashboard.putNumber("drive_P", 0.0);
+                SmartDashboard.putNumber("drive_I" , 0.0);
+                SmartDashboard.putNumber("drive_D" , 0.0);
+                SmartDashboard.putNumber("turn_P", 0.0);
+                SmartDashboard.putNumber("turn_I" , 0.0);
+                SmartDashboard.putNumber("turn_D" , 0.0);
                 break;
         }
 
@@ -79,6 +98,13 @@ public class Module extends SubsystemBase{
                         + driveFeedback.calculate(inputs.driveVelocityRadPerSec, velocityRadPerSec));
             }
         }
+
+        driveFeedback.setP(SmartDashboard.getNumber("drive_P", 0.0));
+        driveFeedback.setI(SmartDashboard.getNumber("drive_I", 0.0));
+        driveFeedback.setD(SmartDashboard.getNumber("drive_D", 0.0));
+        turnFeedback.setP(SmartDashboard.getNumber("turn_P", 0.0));
+        turnFeedback.setI(SmartDashboard.getNumber("turn_I", 0.0));
+        turnFeedback.setD(SmartDashboard.getNumber("turn_D", 0.0));
     }
 
     // Run the module with teh specified setpoints. Return the optimized state

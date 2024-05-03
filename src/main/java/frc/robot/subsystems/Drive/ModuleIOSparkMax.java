@@ -8,6 +8,7 @@ import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 
 public class ModuleIOSparkMax implements ModuleIO {
@@ -114,6 +115,7 @@ public class ModuleIOSparkMax implements ModuleIO {
                 / TURN_GEAR_RATIO;
         inputs.turnAppliedVolts = turnSparkMax.getAppliedOutput() * turnSparkMax.getBusVoltage();
         inputs.turnCurrentAmps = new double[] {turnSparkMax.getOutputCurrent()};
+
     }
 
     @Override
