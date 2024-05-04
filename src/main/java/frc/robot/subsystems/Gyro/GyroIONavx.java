@@ -4,8 +4,6 @@ import com.kauailabs.navx.frc.AHRS;
 
 public class GyroIONavx implements GyroIO {
     private final AHRS navx = new AHRS();
-    private final double yaw = navx.getYaw();
-    private final double yawVelocity = navx.getRate();
 
     public GyroIONavx() {
         navx.zeroYaw();

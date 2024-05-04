@@ -170,11 +170,4 @@ public class Module extends SubsystemBase{
     public double GetCharacterizationVelocity() {
         return inputs.driveVelocityRadPerSec;
     }
-
-
-
-
-
-
-    
 }

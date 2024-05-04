@@ -6,7 +6,6 @@ package frc.robot;
 
 
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
-import org.littletonrobotics.junction.networktables.LoggedDashboardNumber;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 
@@ -21,7 +20,9 @@ import frc.robot.subsystems.Drive.Drive;
 import frc.robot.subsystems.Drive.ModuleIO;
 import frc.robot.subsystems.Drive.ModuleIOSim;
 import frc.robot.subsystems.Gyro.GyroIO;
-import frc.robot.subsystems.Gyro.GyroIONavx;
+import frc.robot.subsystems.Launcher.Launcher;
+import frc.robot.subsystems.Launcher.LauncherIO;
+import frc.robot.subsystems.Launcher.LauncherIOSim;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -32,7 +33,7 @@ import frc.robot.subsystems.Gyro.GyroIONavx;
 public class RobotContainer {
 
   private final Drive drive;
-
+  private final Launcher launcher;
 
   private final CommandXboxController m_driverController = new CommandXboxController(0);
 
@@ -49,6 +50,9 @@ public class RobotContainer {
             new ModuleIO() {},
             new ModuleIO() {},
             new ModuleIO() {});
+
+          launcher = 
+            new Launcher(new LauncherIO() {});
         break;
 
       case SIM: 
@@ -59,6 +63,9 @@ public class RobotContainer {
             new ModuleIOSim(),
             new ModuleIOSim(),
             new ModuleIOSim());
+
+          launcher = 
+            new Launcher(new LauncherIOSim());
         break;
     
       default:
@@ -69,6 +76,9 @@ public class RobotContainer {
             new ModuleIO() {},
             new ModuleIO() {},
             new ModuleIO() {});
+
+          launcher = 
+            new Launcher(new LauncherIO() {});
         break;
     }
 
@@ -102,7 +112,14 @@ public class RobotContainer {
                 new Pose2d(drive.getPose().getTranslation(), new Rotation2d())),
             drive)
           .ignoringDisable(true));
-   
+    m_driverController
+      .rightBumper()
+        .whileTrue(
+          Commands.runEnd(
+            () ->
+              launcher.runRPM(100), 
+              () -> 
+               launcher.stop(), launcher));
   }
 
   /**
