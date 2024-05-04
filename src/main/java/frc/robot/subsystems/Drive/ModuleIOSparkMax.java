@@ -33,28 +33,28 @@ public class ModuleIOSparkMax implements ModuleIO {
                 driveSparkMax = new CANSparkMax(21, MotorType.kBrushless);
                 turnSparkMax = new CANSparkMax(22, MotorType.kBrushless);
                 cancoder = new CANcoder(2);
-                absoluteEncoderOffset = new Rotation2d(Constants.FRONT_LEFT_OFFSET);
+                absoluteEncoderOffset = Rotation2d.fromDegrees(Constants.FRONT_LEFT_OFFSET);
                 break;
             case 1:
                 // Front Right
                 driveSparkMax = new CANSparkMax(31, MotorType.kBrushless);
                 turnSparkMax = new CANSparkMax(32, MotorType.kBrushless);
                 cancoder = new CANcoder(3);
-                absoluteEncoderOffset = new Rotation2d(Constants.FRONT_RIGHT_OFFSET);
+                absoluteEncoderOffset = Rotation2d.fromDegrees(Constants.FRONT_RIGHT_OFFSET);
                 break;
             case 2:
                 // Back Left
                 driveSparkMax = new CANSparkMax(11, MotorType.kBrushless);
                 turnSparkMax = new CANSparkMax(12, MotorType.kBrushless);
                 cancoder = new CANcoder(1);
-                absoluteEncoderOffset = new Rotation2d(Constants.BACK_LEFT_OFFSET);
+                absoluteEncoderOffset = Rotation2d.fromDegrees(Constants.BACK_LEFT_OFFSET);
                 break;
             case 3:
                 // Back Right
                 driveSparkMax = new CANSparkMax(38, MotorType.kBrushless);
                 turnSparkMax = new CANSparkMax(39, MotorType.kBrushless);
                 cancoder = new CANcoder(4);
-                absoluteEncoderOffset = new Rotation2d(Constants.BACK_RIGHT_OFFSET);
+                absoluteEncoderOffset = Rotation2d.fromDegrees(Constants.BACK_RIGHT_OFFSET);
                 break;
             default:
                 throw new RuntimeException("Invalid Module Index");

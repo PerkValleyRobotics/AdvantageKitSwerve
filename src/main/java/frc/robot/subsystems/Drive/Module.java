@@ -37,39 +37,29 @@ public class Module extends SubsystemBase{
                 driveFeedforward = new SimpleMotorFeedforward(0.0, 0.0);
                 driveFeedback = new PIDController(0.0, 0.0, 0.0);
                 turnFeedback = new PIDController(0.0, 0.0, 0.0);
-                SmartDashboard.putNumber("drive_P", 0.0);
-                SmartDashboard.putNumber("drive_I" , 0.0);
-                SmartDashboard.putNumber("drive_D" , 0.0);
-                SmartDashboard.putNumber("turn_P", 0.0);
-                SmartDashboard.putNumber("turn_I" , 0.0);
-                SmartDashboard.putNumber("turn_D" , 0.0);
+                
                 break;
             case SIM:
                 driveFeedforward = new SimpleMotorFeedforward(0.0, 0.13);
                 driveFeedback = new PIDController(0.1, 0.0, 0.0);
                 turnFeedback = new PIDController(10.0, 0.0, 0.0);
-                SmartDashboard.putNumber("drive_P", 0.1);
-                SmartDashboard.putNumber("drive_I" , 0.0);
-                SmartDashboard.putNumber("drive_D" , 0.0);
-                SmartDashboard.putNumber("turn_P", 10.0);
-                SmartDashboard.putNumber("turn_I" , 0.0);
-                SmartDashboard.putNumber("turn_D" , 0.0);
                 break;
             default:
                 driveFeedforward = new SimpleMotorFeedforward(0.0, 0.0);
                 driveFeedback = new PIDController(0.0, 0.0, 0.0);
                 turnFeedback = new PIDController(0.0, 0.0, 0.0);
-                SmartDashboard.putNumber("drive_P", 0.0);
-                SmartDashboard.putNumber("drive_I" , 0.0);
-                SmartDashboard.putNumber("drive_D" , 0.0);
-                SmartDashboard.putNumber("turn_P", 0.0);
-                SmartDashboard.putNumber("turn_I" , 0.0);
-                SmartDashboard.putNumber("turn_D" , 0.0);
                 break;
         }
 
         turnFeedback.enableContinuousInput(-Math.PI, Math.PI);
         setBrakeMode(true);
+
+        SmartDashboard.putNumber("drive_P", driveFeedback.getP());
+        SmartDashboard.putNumber("drive_I" , driveFeedback.getI());
+        SmartDashboard.putNumber("drive_D" , driveFeedback.getD());
+        SmartDashboard.putNumber("turn_P", turnFeedback.getP());
+        SmartDashboard.putNumber("turn_I" , turnFeedback.getI());
+        SmartDashboard.putNumber("turn_D" , turnFeedback.getD());
     }
 
     // Run closed loop turn control

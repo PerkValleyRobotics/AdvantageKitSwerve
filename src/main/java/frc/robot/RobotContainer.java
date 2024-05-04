@@ -19,7 +19,9 @@ import frc.robot.commands.DriveCommands;
 import frc.robot.subsystems.Drive.Drive;
 import frc.robot.subsystems.Drive.ModuleIO;
 import frc.robot.subsystems.Drive.ModuleIOSim;
+import frc.robot.subsystems.Drive.ModuleIOSparkMax;
 import frc.robot.subsystems.Gyro.GyroIO;
+import frc.robot.subsystems.Gyro.GyroIONavx;
 import frc.robot.subsystems.Launcher.Launcher;
 import frc.robot.subsystems.Launcher.LauncherIO;
 import frc.robot.subsystems.Launcher.LauncherIOSim;
@@ -45,11 +47,11 @@ public class RobotContainer {
       case REAL:
         drive = 
           new Drive(
-            new GyroIO() {},
-            new ModuleIO() {},
-            new ModuleIO() {},
-            new ModuleIO() {},
-            new ModuleIO() {});
+            new GyroIONavx(),
+            new ModuleIOSparkMax(0),
+            new ModuleIOSparkMax(1),
+            new ModuleIOSparkMax(2),
+            new ModuleIOSparkMax(3));
 
           launcher = 
             new Launcher(new LauncherIO() {});
