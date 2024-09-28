@@ -36,6 +36,6 @@ public class LauncherIOSim implements LauncherIO {
     @Override
     public void setRightVoltage(double volts) {
         rightAppliedVolts = MathUtil.clamp(volts, -12.0, 12.0);
-        rightSim.setInputVoltage(leftAppliedVolts);
+        rightSim.setInputVoltage(rightAppliedVolts);
     }
 }

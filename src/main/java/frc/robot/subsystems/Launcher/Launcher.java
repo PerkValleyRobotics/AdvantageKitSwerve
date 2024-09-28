@@ -11,6 +11,8 @@ import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -91,18 +93,21 @@ public class Launcher extends SubsystemBase {
 
       double leftVelocityRadPerSec = Units.rotationsPerMinuteToRadiansPerSecond(leftSetpoint);
       io.setLeftVoltage(
-          //leftFeedForward.calculate(leftVelocityRadPerSec) 
+          // leftFeedForward.calculate(leftVelocityRadPerSec) 
              leftFeedBack.calculate(laucherInputs.leftWheelVelocityRadPerSec, leftVelocityRadPerSec));
       
       double rightVelocityRadPerSec = Units.rotationsPerMinuteToRadiansPerSecond(rightSetpoint);
       io.setRightVoltage(
-         // rightFeedForward.calculate(leftVelocityRadPerSec) 
+          // rightFeedForward.calculate(rightVelocityRadPerSec) 
              rightFeedBack.calculate(laucherInputs.rightWheelVelocityRadPerSec, rightVelocityRadPerSec));
-      Logger.recordOutput("Laucher/LeftSetpointRadPerSec", leftVelocityRadPerSec);
-      Logger.recordOutput("Laucher/RightSetpointRadPerSec", rightVelocityRadPerSec);
+
+      Logger.recordOutput("Launcher/LeftSetpointRadPerSec", leftVelocityRadPerSec);
+      Logger.recordOutput("Launcher/RightSetpointRadPerSec", rightVelocityRadPerSec);
+    } else {
+
+      Logger.recordOutput("Launcher/LeftSetpointRadPerSec", 0.0);
+      Logger.recordOutput("Launcher/RightSetpointRadPerSec", 0.0);
     }
-
-
   }
 
   public void runRPM(double rpm) {
@@ -117,6 +122,8 @@ public class Launcher extends SubsystemBase {
     runRPM(0);
     io.setLeftVoltage(0);
     io.setRightVoltage(0);
+
+    System.out.println("stopping" + Logger.getRealTimestamp());
 
     leftSetpoint = null;
     rightSetpoint = null;
