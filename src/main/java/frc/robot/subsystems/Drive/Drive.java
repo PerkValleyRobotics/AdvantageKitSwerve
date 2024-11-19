@@ -22,6 +22,9 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.units.Distance;
+import edu.wpi.first.units.Measure;
+import edu.wpi.first.units.Velocity;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
@@ -62,50 +65,53 @@ public class Drive extends SubsystemBase {
     ModuleIO frModuleIO,
     ModuleIO blModuleIO,
     ModuleIO brModuleIO) {
-      this.gyroIO = gyroIO;
-      modules[0] = new Module(flModuleIO, 0);
-      modules[1] = new Module(frModuleIO, 1);
-      modules[2] = new Module(blModuleIO, 2);
-      modules[3] = new Module(brModuleIO, 3);
+    this.gyroIO = gyroIO;
+    modules[0] = new Module(flModuleIO, 0);
+    modules[1] = new Module(frModuleIO, 1);
+    modules[2] = new Module(blModuleIO, 2);
+    modules[3] = new Module(brModuleIO, 3);
 
-      AutoBuilder.configureHolonomic(
+    AutoBuilder.configureHolonomic(
         this::getPose,
         this::setPose,
         () -> kinematics.toChassisSpeeds(getModuleStates()),
         this::runVelocity,
         new HolonomicPathFollowerConfig(
-          MAX_ANGULAR_SPEED, DRIVE_BASE_RADIUS, new ReplanningConfig()),
-        () ->
-          DriverStation.getAlliance().isPresent()
+            MAX_ANGULAR_SPEED, DRIVE_BASE_RADIUS, new ReplanningConfig()),
+        () -> DriverStation.getAlliance().isPresent()
             && DriverStation.getAlliance().get() == Alliance.Red,
         this);
 
     PathPlannerLogging.setLogActivePathCallback(
-      (activePath) -> {
-        Logger.recordOutput(
-          "Odemetry/Trajectory", activePath.toArray(new Pose2d[activePath.size()]));
-      });
+        (activePath) -> {
+          Logger.recordOutput(
+              "Odemetry/Trajectory", activePath.toArray(new Pose2d[activePath.size()]));
+        });
     PathPlannerLogging.setLogTargetPoseCallback(
-      (targetPose) -> {
-        Logger.recordOutput("Odometry/TrajectorySetpoint", targetPose);
-      });
+        (targetPose) -> {
+          Logger.recordOutput("Odometry/TrajectorySetpoint", targetPose);
+        });
 
     // Congigure SysId
-    sysId = 
-      new SysIdRoutine(
+    sysId = new SysIdRoutine(
         new SysIdRoutine.Config(
-          null,
-          null,
-          null,
-          (state) -> Logger.recordOutput("Drive/SysIdState", state.toString())),
+            null,
+            null,
+            null,
+            (state) -> Logger.recordOutput("Drive/SysIdState", state.toString())),
         new SysIdRoutine.Mechanism(
-        (voltage) -> {
-          for (int i = 0; i < 4; i++) {
-            modules[i].runCharacterization(voltage.in(Volts));
-          }
-        },
-        null,
-        this));
+            (voltage) -> {
+              for (int i = 0; i < 4; i++) {
+                modules[i].runCharacterization(voltage.in(Volts));
+              }
+            },
+            log -> {
+              log.motor("front-left").linearVelocity(MetersPerSecond.of(modules[0].GetCharacterizationVelocity()));
+              log.motor("front-right").linearVelocity(MetersPerSecond.of(modules[1].GetCharacterizationVelocity()));
+              log.motor("back-left").linearVelocity(MetersPerSecond.of(modules[2].GetCharacterizationVelocity()));
+              log.motor("back-right").linearVelocity(MetersPerSecond.of(modules[3].GetCharacterizationVelocity()));
+            },
+            this));
   }
 
   @Override

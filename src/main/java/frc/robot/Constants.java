@@ -13,13 +13,17 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-  public static final Mode currentMode = Mode.SIM;
+  public static final Mode currentMode = Mode.REAL;
 
   // swerve module offsets
-  public static final double FRONT_LEFT_OFFSET = 295.6640625;
-  public static final double FRONT_RIGHT_OFFSET = 265.861140625;
-  public static final double BACK_LEFT_OFFSET = 256.81640625;
-  public static final double BACK_RIGHT_OFFSET = 152.490234375;
+  //public static final double FRONT_LEFT_OFFSET = 295.6640625;
+  public static final double FRONT_LEFT_OFFSET = 299.26764;
+  //public static final double FRONT_RIGHT_OFFSET = 265.861140625;
+  public static final double FRONT_RIGHT_OFFSET = 266.30856;
+  //public static final double BACK_LEFT_OFFSET = 256.81640625;
+  public static final double BACK_LEFT_OFFSET = 264.02328;
+  //public static final double BACK_RIGHT_OFFSET = 152.490234375;
+  public static final double BACK_RIGHT_OFFSET = 152.3146;
 
   public static enum Mode {
     REAL, 

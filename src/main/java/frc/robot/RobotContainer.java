@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.commands.DriveCommands;
 import frc.robot.subsystems.Drive.Drive;
 import frc.robot.subsystems.Drive.ModuleIO;
@@ -123,6 +124,9 @@ public class RobotContainer {
               launcher.runRPM(100), 
               () -> 
                launcher.stop(), launcher));
+    m_driverController.a().whileTrue(drive.sysIdDynamic(SysIdRoutine.Direction.kForward));
+    m_driverController.b().whileTrue(drive.sysIdQuasistatic(SysIdRoutine.Direction.kForward));
+    m_driverController.y().whileTrue(drive.sysIdQuasistatic(SysIdRoutine.Direction.kReverse));
   }
 
   /**

@@ -37,7 +37,7 @@ public class Module extends SubsystemBase{
             case REPLAY:
                 driveFeedforward = new SimpleMotorFeedforward(0.0, 0.0);
                 driveFeedback = new PIDController(0.0, 0.0, 0.0);
-                turnFeedback = new PIDController(0.0, 0.0, 0.0);
+                turnFeedback = new PIDController(7.5, 0.0, 0.38);
                 
                 break;
             case SIM:
