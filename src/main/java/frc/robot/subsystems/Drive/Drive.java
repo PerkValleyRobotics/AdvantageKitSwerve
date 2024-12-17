@@ -105,12 +105,7 @@ public class Drive extends SubsystemBase {
                 modules[i].runCharacterization(voltage.in(Volts));
               }
             },
-            log -> {
-              log.motor("front-left").linearVelocity(MetersPerSecond.of(modules[0].GetCharacterizationVelocity()));
-              log.motor("front-right").linearVelocity(MetersPerSecond.of(modules[1].GetCharacterizationVelocity()));
-              log.motor("back-left").linearVelocity(MetersPerSecond.of(modules[2].GetCharacterizationVelocity()));
-              log.motor("back-right").linearVelocity(MetersPerSecond.of(modules[3].GetCharacterizationVelocity()));
-            },
+            null,
             this));
   }
 
