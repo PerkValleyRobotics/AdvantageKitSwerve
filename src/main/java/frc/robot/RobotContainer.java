@@ -105,7 +105,7 @@ public class RobotContainer {
         () -> -m_driverController.getLeftY(),
         () -> -m_driverController.getLeftX(),
         () -> m_driverController.getRightX()));
-    m_driverController.x().onTrue(Commands.runOnce(drive::stopWithX, drive));
+    //m_driverController.x().onTrue(Commands.runOnce(drive::stopWithX, drive));
     m_driverController
       .b()
         .onTrue(
@@ -125,6 +125,7 @@ public class RobotContainer {
               () -> 
                launcher.stop(), launcher));
     m_driverController.a().whileTrue(drive.sysIdDynamic(SysIdRoutine.Direction.kForward));
+    m_driverController.x().whileTrue(drive.sysIdDynamic(SysIdRoutine.Direction.kReverse));
     m_driverController.b().whileTrue(drive.sysIdQuasistatic(SysIdRoutine.Direction.kForward));
     m_driverController.y().whileTrue(drive.sysIdQuasistatic(SysIdRoutine.Direction.kReverse));
   }

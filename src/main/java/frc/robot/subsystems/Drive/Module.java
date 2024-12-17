@@ -35,7 +35,7 @@ public class Module extends SubsystemBase{
         switch (Constants.currentMode) {
             case REAL:
             case REPLAY:
-                driveFeedforward = new SimpleMotorFeedforward(0.0, 0.0);
+                driveFeedforward = new SimpleMotorFeedforward(0.011306, 0.13225, 0.0041316);
                 driveFeedback = new PIDController(0.0, 0.0, 0.0);
                 turnFeedback = new PIDController(7.5, 0.0, 0.38);
                 

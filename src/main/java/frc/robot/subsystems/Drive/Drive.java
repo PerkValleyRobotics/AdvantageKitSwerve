@@ -55,6 +55,7 @@ public class Drive extends SubsystemBase {
       new SwerveModulePosition(),
       new SwerveModulePosition()
     };
+
   private SwerveDrivePoseEstimator poseEstimatior = 
     new SwerveDrivePoseEstimator(kinematics, rawGyroRotation, lastModulePositions, new Pose2d());
 
